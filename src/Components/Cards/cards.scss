@@ -1,0 +1,23 @@
+.cards-container {
+    margin: 10px auto;
+
+
+    .card {
+        margin: 50px auto;
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+
+
+
+            // .card-button {
+            //     margin-left: 200px;
+            // }
+        }
+
+    }
+
+}
