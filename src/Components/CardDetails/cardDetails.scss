@@ -1,0 +1,61 @@
+.product-details-wrapper {
+    // border: 2px solid red;
+
+
+
+    .second-grid-box {
+        padding: 170px 50px;
+
+
+        .name-favourite {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: "HM Sans Semi Bold", "HMSansHebrew-SemiBold", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+
+
+            .color {
+                border: 1px solid gray;
+                border-radius: 50%;
+                height: 30px;
+                width: 30px;
+            }
+        }
+
+
+        .price {
+            font-size: 20px;
+            font-weight: 400;
+            font-family: "HM Sans Semi Bold", "HMSansHebrew-SemiBold", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+        }
+
+
+        .size-selector-container {
+
+
+            .size-selector {
+                width: 100%;
+                padding: 15px;
+                margin: 50px 0px;
+                font-size: 20px;
+                font-weight: 600;
+                font-family: "HM Sans Semi Bold", "HMSansHebrew-SemiBold", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+            }
+        }
+
+
+        .add-cart-btn-container {
+
+
+            .add-cart-btn {
+                padding: 15px 193px;
+                font-size: 15px;
+                font-weight: 600;
+                color: white;
+                background-color: black;
+                cursor: pointer;
+            }
+        }
+    }
+
+}

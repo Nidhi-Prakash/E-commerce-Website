@@ -45,7 +45,7 @@ const Navbar = () => {
             {
                 cart &&
                 <Drawer
-                    title={'YOUR CART'}
+                    title={'Shopping bag'}
                     open={cart}
                     onClose={() => setCart(false)}
                     width="650px"
@@ -53,7 +53,6 @@ const Navbar = () => {
                     placement='right'
                     rootStyle={{ marginTop: '52px', border: 'none', outline: 'none' }}
                 >
-                    <Cart />
                     <Cart />
 
                 </Drawer>

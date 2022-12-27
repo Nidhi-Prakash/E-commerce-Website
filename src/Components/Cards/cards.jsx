@@ -1,29 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './cards.scss';
-import { Card, Col, Row, Dropdown, Pagination } from 'antd';
+import { Card, Col, Row, Button, Pagination, Modal } from 'antd';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import Results from '../../fetchFromAPI/api';
+import CardDetails from '../CardDetails/cardDetails';
 
 const { Meta } = Card;
 
 const Cards = () => {
 
-    const onMenuClick = (e) => {
-        console.log('click', e);
-    };
-    const items = [
-        {
-            key: '1',
-            label: 'Add to Wishlist',
-        },
-        {
-            key: '2',
-            label: 'Add to Cart',
-        }
-    ];
-
+    const [showCardDetails, setShowCardDetails] = useState(false);
     const [apiData, setApiData] = useState(Results);
     const [favouriteKey, setFavouriteKey] = useState([]);
+    const [editKey, setEditKey] = useState();
     // const [heart, setHeart] = useState(false);
 
 
@@ -40,31 +29,17 @@ const Cards = () => {
                                     style={{
                                         width: 350
                                     }}
-                                    key={item?.code}
+                                    key={item?.key}
                                     className='card'
                                     cover={<img alt="example" src={item?.images?.[0]?.url} />}
                                 >
-                                    <Meta title={item?.name} description={`$. ${item?.price?.value}`} />
+                                    <Meta title={item?.name} description={item?.price?.currencyIso === 'INR' ? `Rs. ${item?.price?.value}` : `$. ${item?.price?.value}`} />
 
                                     <div className='card-footer'>
-                                        <Dropdown.Button
-                                            menu={{
-                                                items,
-                                                onClick: onMenuClick,
-                                            }}
-                                            className='card-button'
-                                        >
-                                            Details
-                                        </Dropdown.Button>
-
-                                        {/* {
-                                            favouriteKey.map((favItem) => {
-                                                if (favItem === item?.code) {
-                                                   setHeart(true);
-                                                }
-                                            })
-
-                                        } */}
+                                        <Button onClick={() => {
+                                            setEditKey(item?.key)
+                                            setShowCardDetails(true)
+                                        }}>More >></Button>
 
                                         {/* { heart
                                             ? <MdOutlineFavorite style={{ height: '25px', width: '25px' }} />
@@ -79,6 +54,22 @@ const Cards = () => {
                     }
                 </Row>
             </div>
+
+            {
+                showCardDetails && <Modal
+                    open={showCardDetails}
+                    title="PRODUCT DETAILS"
+                    centered
+                    closable
+                    // onOk={() => setShowCardDetails(false)}
+                    onCancel={() => setShowCardDetails(false)}
+                    footer={null}
+                    width={1200}
+                    // height={600}
+                >
+                    <CardDetails apiData={apiData} editKey={editKey} />
+                </Modal>
+            }
         </div >
     );
 };
