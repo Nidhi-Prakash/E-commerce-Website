@@ -1,5 +1,4 @@
 .cart-wrapper {
-    // border: 2px solid gray;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -7,17 +6,14 @@
     border-bottom: 1px solid grey;
 
 
+
     .image img {
-        border-radius: 30%;
+        border-radius: 50%;
+        padding: 0px 28px 0px 0px;
     }
 
 
     .heading-container {
-        // display: flex;
-        // justify-content: center;
-        // align-items: center;
-        // flex-direction: column;
-        // padding-right: 20px;
         position: relative;
         right: 32px;
 
@@ -25,14 +21,16 @@
 
         .product-name {
             font-size: 16px;
-            font-weight: 500;
-            // font-family: "HM Sans Semi Bold","HMSansHebrew-SemiBold","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",Osaka,"メイリオ",Meiryo,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+            font-weight: 700;
+            width: 225px;
+            font-family: "HM Sans Semi Bold", "HMSansHebrew-SemiBold", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
         }
 
 
         .product-category {
             font-size: 12px;
-            // font-family: "HM Sans Semi Bold","HMSansHebrew-SemiBold","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",Osaka,"メイリオ",Meiryo,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+            font-weight: 600;
+            font-family: "HM Sans Semi Bold", "HMSansHebrew-SemiBold", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
         }
     }
 
@@ -42,6 +40,7 @@
         justify-content: center;
         align-items: center;
         column-gap: 15px;
+        width: 70px;
 
 
         .number {
@@ -49,8 +48,8 @@
             width: 16px;
             font-size: 13px;
             text-align: center;
-            font-weight: 500;
-            // font-family: "HM Sans Semi Bold","HMSansHebrew-SemiBold","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",Osaka,"メイリオ",Meiryo,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+            font-weight: 700;
+            font-family: "HM Sans Semi Bold", "HMSansHebrew-SemiBold", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
         }
 
 
@@ -63,8 +62,24 @@
         }
     }
 
+    .price {
+        width: 70px;
+    }
+
 
     .dustbin-icon {
         cursor: pointer;
     }
+}
+
+
+.checkout-btn {
+    padding: 15px 225px;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+    position: fixed;
+    bottom: 10px;
 }

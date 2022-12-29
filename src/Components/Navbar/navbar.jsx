@@ -52,6 +52,7 @@ const Navbar = () => {
                     closable={false}
                     placement='right'
                     rootStyle={{ marginTop: '52px', border: 'none', outline: 'none' }}
+                    bodyStyle={{maxHeight : '83%'}}
                 >
                     <Cart />
 

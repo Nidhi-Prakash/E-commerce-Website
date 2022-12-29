@@ -2,21 +2,24 @@ import React, { useState } from 'react';
 import './cardDetails.scss';
 import { Carousel, Col, Row, Rate } from 'antd';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
+import { cartActions } from '../../Store/cartSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { Button, Popover } from 'antd';
 
 
 const CardDetails = ({ apiData, editKey }) => {
+
+    const [open, setOpen] = useState(false);
+
+    const dispatch = useDispatch();
+    const productDetails = useSelector((state) => state.productDetails);
 
     function getRandomArbitrary(min, max) {
         return Math.random() * (max - min) + min;
     }
 
-    function addCartFunction(key) {
-        apiData.map((item) => {
-            if (item.key === key) {
-                item.addedToCart = true;
-                localStorage.setItem([item]);
-            }
-        })
+    function addCartFunction(selectedProduct) {
+        dispatch(cartActions.addToCart(selectedProduct));
     };
 
     return (
@@ -67,9 +70,24 @@ const CardDetails = ({ apiData, editKey }) => {
                                             </select>
                                         </div>
 
-                                        <div className='add-cart-btn-container'>
-                                            <button className='add-cart-btn' style={{ width: 'max-content' }} onClick={() => addCartFunction(selectedProduct?.key)}>Add to Cart</button>
-                                        </div>
+
+                                        {
+                                            selectedProduct.addedToCart === true
+                                                ? <Popover
+                                                    content={'Product has been already added to cart'}
+                                                    trigger="click"
+                                                    open={open}
+                                                >
+                                                    <div className='add-cart-btn-container'>
+                                                        <button className='add-cart-btn' style={{ width: 'max-content', padding: '15px 187px' }} onClick={() => open === true ? setOpen(false) : setOpen(true)}>Added to Cart</button>
+                                                    </div>
+                                                </Popover>
+
+                                                : <div className='add-cart-btn-container'>
+                                                    <button className='add-cart-btn' style={{ width: 'max-content' }} onClick={() => addCartFunction(selectedProduct)}>Add to Cart</button>
+                                                </div>
+                                        }
+
                                     </div></Col>
                                 </Row>
                             </div>

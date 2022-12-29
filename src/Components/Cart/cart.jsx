@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import './cart.scss';
 import { ImBin } from 'react-icons/im';
+import { cartActions } from '../../Store/cartSlice';
+import { useSelector, useDispatch } from 'react-redux';
 import Results from '../../fetchFromAPI/api';
 
 
 const Cart = () => {
   const [num, setNum] = useState(1);
-  const [apiData, setApiData] = useState(Results);
+
+  const dispatch = useDispatch();
+  const productDetails = useSelector((state) => state.productDetails);
 
   const decNum = () => {
     if (num !== 0) {
@@ -14,28 +18,32 @@ const Cart = () => {
     }
   };
 
-  const removeCartFunction = (key) => {
-    apiData.map((item) => {
-      if (item.key === key) {
-        item.addedToCart = false;
+  const removeCartFunction = (selectedProduct) => {
+    var product;
+    Results.map((item) => {
+      if (item.key === selectedProduct.key) {
+        product = item;
       }
-    })
+    });
+
+    dispatch(cartActions.removeFromCart({ product, selectedProduct }));
   };
 
   return (
-    <div>
-      {
-        apiData.map((item) => {
-          if (item.addedToCart === true) {
+    <>
+      <div className='main-container'>
+        {productDetails === []
+          ? <h1>There is nothing in your cart</h1>
+          : productDetails.map((item) => {
             return < div className='cart-wrapper' >
 
               <div className='image'>
-                <img src={item?.images?.[0]?.url} alt="" style={{ height: '80px', width: '80px' }} />
+                <img src={item.image} alt="" style={{ height: '80px', width: '80px' }} />
               </div>
 
               <div className='heading-container'>
-                <p className='product-name'>{item?.name}</p>
-                <p className='product-category'>{item?.categoryName}</p>
+                <p className='product-name'>{item.name}</p>
+                <p className='product-category'>{item.category}</p>
               </div>
 
               <div className='qty-container'>
@@ -44,15 +52,20 @@ const Cart = () => {
                 <div onClick={() => setNum(num + 1)} className='increase-icon'>+</div>
               </div>
 
-              <div className='price'>{item?.price?.value}</div>
+              <div className='price'>{item.currency === 'INR' ? `Rs. ${item.price}` : `$. ${item.price}`}</div>
 
-              <div className='dustbin-icon' onClick={() => removeCartFunction(item.key)}><ImBin /></div>
+              <div className='dustbin-icon' onClick={() => removeCartFunction(item)}><ImBin /></div>
 
             </div >
-          }
-        })
-      }
-    </div>
+          })
+        }
+      </div>
+
+      <footer>
+        <button className='checkout-btn'>Proceed to checkout</button>
+      </footer>
+    </>
+
   );
 };
 
