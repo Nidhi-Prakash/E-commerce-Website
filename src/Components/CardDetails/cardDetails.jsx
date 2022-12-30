@@ -4,99 +4,109 @@ import { Carousel, Col, Row, Rate } from 'antd';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import { cartActions } from '../../Store/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { productActions } from '../../Store/productSlice'
 import { Popover } from 'antd';
 
 
-const CardDetails = ({ apiData, editKey }) => {
-
-    const [open, setOpen] = useState(false);
-
+const CardDetails = ({ cardDetailsData }) => {
     const dispatch = useDispatch();
-    const productDetails = useSelector((state) => state.productDetails);
+    const cartProductDetails = useSelector((state) => state.cart.cartProductDetails);
+    const productDetails = useSelector((state) => state.product.productDetails);
+    const [open, setOpen] = useState(false);
+    const color = cardDetailsData?.articles?.[0]?.color?.code;
 
-    function getRandomArbitrary(min, max) {
+    var isAddedToCart = false;
+
+    for (const temp of cartProductDetails) if (temp.key === cardDetailsData.key) isAddedToCart = true;
+
+    const getRandomArbitrary = (min, max) => {
         return Math.random() * (max - min) + min;
     }
 
-    function addCartFunction(selectedProduct) {
-        dispatch(cartActions.addToCart(selectedProduct));
+    const addCartFunction = (cardDetailsData) => {
+        dispatch(cartActions.addToCart(cardDetailsData));
     };
+
+    const handleHeart = (indx) => {
+        dispatch(productActions.heartAction({ indx }))
+    }
 
     return (
         <>
-            <div>
-                {
-                    apiData.map((item) => {
-                        if (item.key === editKey) {
-                            var selectedProduct = item;
-                            var color = selectedProduct?.articles?.[0]?.color?.code;
-                            return <div className='product-details-wrapper'>
-                                <Row>
-                                    <Col span={12} className='first-grid-box'>
-                                        <Carousel effect="fade" className='carousel-container'>
-                                            {selectedProduct?.galleryImages.map((image) => {
-                                                return <img src={image?.url} alt='1st' className='gallery' />
-                                            })}
-                                        </Carousel>
+            <div className='product-details-wrapper'>
+                <Row>
+                    <Col span={12} className='first-grid-box'>
+                        <Carousel effect="fade" className='carousel-container'>
+                            {cardDetailsData?.galleryImages.map((image) => {
+                                return <img src={image?.url} alt='1st' className='gallery' />
+                            })}
+                        </Carousel>
 
-                                    </Col>
+                    </Col>
 
-                                    <Col span={12} className='second-grid-box'><div>
-                                        <div className='name-favourite'>
-                                            <div>
-                                                <h1 style={{ width: '372px' }}>{selectedProduct?.name}</h1>
-                                                <div className='color' style={{ backgroundColor: `#${color}` }}></div>
-                                            </div>
-                                            <MdOutlineFavoriteBorder style={{ height: '25px', width: '25px', cursor: 'pointer', position: 'relative', bottom: '15px' }} />
+                    <Col span={12} className='second-grid-box'>
+                        <div>
+                            <div className='name-favourite'>
+                                <div>
+                                    <h1 style={{ width: '372px' }}>{cardDetailsData?.name}</h1>
+                                    <div className='color' style={{ backgroundColor: `#${color}` }}></div>
+                                </div>
+                                {productDetails[cardDetailsData.key - 1].isFavorite === false ?
+                                    <MdOutlineFavoriteBorder style={{ height: '25px', width: '25px', cursor: 'pointer', position: 'relative', bottom: '15px' }} onClick={() => handleHeart(cardDetailsData.key - 1)} />
+                                    :
+                                    <MdOutlineFavorite style={{ height: '25px', width: '25px', cursor: 'pointer', position: 'relative', bottom: '15px' }} onClick={() => handleHeart(cardDetailsData.key - 1)} />
+                                }
+
+                            </div>
+
+                            <div className='price'>
+                                <h4>{cardDetailsData?.price?.currencyIso === 'INR' ? `Rs. ${cardDetailsData?.price?.value}` : `$. ${cardDetailsData?.price?.value}`}</h4>
+                            </div>
+
+                            <div className='rating'>
+                                <Rate allowHalf defaultValue={getRandomArbitrary(0, 6)} />
+                            </div>
+
+                            <div className='size-selector-container'>
+                                <select name="sizet" className='size-selector'>
+                                    {
+                                        cardDetailsData?.variantSizes.map((size) => {
+                                            if (size !== null) {
+                                                return <option value={size?.filterCode} selected="selected" className='options'>{size?.filterCode}</option>
+                                            }
+                                        })
+                                    }
+                                </select>
+                            </div>
+
+
+                            {
+                                isAddedToCart === true
+                                    ? <Popover
+                                        content={'Product has been already added to cart'}
+                                        trigger="click"
+                                        open={open}
+                                    >
+                                        <div className='add-cart-btn-container'>
+                                            <button className='add-cart-btn' style={{ width: 'max-content', padding: '15px 187px' }} onClick={() => setOpen(!open)}>Added to Cart</button>
                                         </div>
+                                    </Popover>
 
-                                        <div className='price'>
-                                            <h4>{selectedProduct?.price?.currencyIso === 'INR' ? `Rs. ${selectedProduct?.price?.value}` : `$. ${selectedProduct?.price?.value}`}</h4>
-                                        </div>
+                                    :
+                                    <div className='add-cart-btn-container'>
+                                        <button className='add-cart-btn' style={{ width: 'max-content' }} onClick={() => addCartFunction(cardDetailsData)}>Add to Cart</button>
+                                    </div>
+                            }
 
-                                        <div className='rating'>
-                                            <Rate allowHalf defaultValue={getRandomArbitrary(0, 6)} />
-                                        </div>
+                            <div className='review-container'>
+                                <h3 className='review-heading'>Write Review</h3>
+                                <div className='review-input-btn'>
+                                    <input type="text" className='review-input' />
+                                    <button className='review-btn'>Post</button>
+                                </div>
+                            </div>
 
-                                        <div className='size-selector-container'>
-                                            <select name="sizet" className='size-selector'>
-                                                {
-                                                    selectedProduct?.variantSizes.map((size) => {
-                                                        if (size !== null) {
-                                                            return <option value={size?.filterCode} selected="selected" className='options'>{size?.filterCode}</option>
-                                                        }
-                                                    })
-                                                }
-                                            </select>
-                                        </div>
-
-
-                                        {
-                                            selectedProduct.addedToCart === true
-                                                ? <Popover
-                                                    content={'Product has been already added to cart'}
-                                                    trigger="click"
-                                                    open={open}
-                                                >
-                                                    <div className='add-cart-btn-container'>
-                                                        <button className='add-cart-btn' style={{ width: 'max-content', padding: '15px 187px' }} onClick={() => open === true ? setOpen(false) : setOpen(true)}>Added to Cart</button>
-                                                    </div>
-                                                </Popover>
-
-                                                : <div className='add-cart-btn-container'>
-                                                    <button className='add-cart-btn' style={{ width: 'max-content' }} onClick={() => addCartFunction(selectedProduct)}>Add to Cart</button>
-                                                </div>
-                                        }
-
-                                        <div className='review-container'>
-                                            <h3 className='review-heading'>Write Review</h3>
-                                            <div className='review-input-btn'>
-                                                <input type="text" className='review-input' />
-                                                <button className='review-btn'>Post</button>
-                                            </div>
-                                        </div>
-
-                                        {/* <div className='comment-wrapper'>
+                            {/* <div className='comment-wrapper'>
                                             <div className='comment-container'>
                                                 <p className='date'>29/12/2023</p>
                                                 <div className='comment'>
@@ -113,12 +123,10 @@ const CardDetails = ({ apiData, editKey }) => {
                                             </div>
                                         </div> */}
 
-                                    </div></Col>
-                                </Row>
-                            </div>
-                        }
-                    })
-                }
+
+                        </div>
+                    </Col>
+                </Row>
             </div>
         </>
     );

@@ -1,27 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './cards.scss';
-import { Card, Col, Row, Button, Pagination, Modal } from 'antd';
+import { Card, Col, Row, Button, Modal } from 'antd';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import Results from '../../fetchFromAPI/api';
 import CardDetails from '../CardDetails/cardDetails';
+import {productActions} from '../../Store/productSlice'
 
 const { Meta } = Card;
 
 const Cards = () => {
-
+    const dispatch = useDispatch();
     const [showCardDetails, setShowCardDetails] = useState(false);
-    const [apiData, setApiData] = useState(Results);
-    const [favouriteKey, setFavouriteKey] = useState([]);
-    const [editKey, setEditKey] = useState();
-    // const [heart, setHeart] = useState(false);
+    const [cardDetailsData, setcardDetailsData] = useState({});
 
+    const productDetails = useSelector((state) => state.product.productDetails);
+    
+    const handleHeart = (indx) => {
+        dispatch(productActions.heartAction({indx}));
+    }
 
     return (
         <div className='cards-container'>
             <div className="site-card-wrapper">
                 <Row gutter={16}>
                     {
-                        apiData?.map((item) => {
+                        Results?.map((item, indx) => {
                             // console.log('ITEM', item);
                             return <Col span={8} className='columns'>
                                 <Card
@@ -37,16 +41,16 @@ const Cards = () => {
 
                                     <div className='card-footer'>
                                         <Button onClick={() => {
-                                            setEditKey(item?.key)
+                                            setcardDetailsData({ ...item })
                                             setShowCardDetails(true)
-                                        }}>More >></Button>
+                                        }}>More</Button>
 
-                                        {/* { heart
-                                            ? <MdOutlineFavorite style={{ height: '25px', width: '25px' }} />
-                                            : <MdOutlineFavoriteBorder style={{ height: '25px', width: '25px' }} onClick={() => setFavouriteKey([...favouriteKey, item.code])} />
-                                        } */}
-
-                                        <MdOutlineFavoriteBorder style={{ height: '25px', width: '25px' }} onClick={() => setFavouriteKey([...favouriteKey, item.code])} />
+                                        {productDetails[indx].isFavorite === false ? 
+                                            <MdOutlineFavoriteBorder style={{ height: '25px', width: '25px' }} onClick={() => handleHeart(indx)} />
+                                            :
+                                            <MdOutlineFavorite style={{ height: '25px', width: '25px' }} onClick={() => handleHeart(indx)} />
+                                        }                                         
+                                        
                                     </div>
                                 </Card>
                             </Col>
@@ -62,15 +66,18 @@ const Cards = () => {
                     centered
                     closable
                     // onOk={() => setShowCardDetails(false)}
-                    onCancel={() => setShowCardDetails(false)}
+                    onCancel={() => {
+                        setShowCardDetails(false)
+                        setcardDetailsData({})
+                    }}
                     footer={null}
                     width={1200}
-                    // height={600}
+                // height={600}
                 >
-                    <CardDetails apiData={apiData} editKey={editKey} />
+                    <CardDetails cardDetailsData={cardDetailsData} />
                 </Modal>
             }
-        </div >
+        </div>
     );
 };
 

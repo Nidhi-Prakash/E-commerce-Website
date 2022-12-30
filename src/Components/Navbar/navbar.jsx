@@ -6,19 +6,21 @@ import { GiKidSlide } from 'react-icons/gi';
 import { FaShoppingCart } from 'react-icons/fa';
 import { MdOutlineFavoriteBorder } from 'react-icons/md';
 import { Drawer, Menu } from 'antd';
+
 import Cart from '../Cart/cart';
 import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const [sideBar, setSideBar] = useState(false);
     const [cart, setCart] = useState(false);
+    const [favouriteBar, setFavouriteBar] = useState(false);
 
-    const productDetails = useSelector((state) => state.productDetails);
+    const cartProductDetails = useSelector((state) => state.cart.cartProductDetails);
 
     return (
         <div>
             <div className='navbar'>
-                <div><GiHamburgerMenu className='hamburger' onClick={() => {sideBar ? setSideBar(false) : setSideBar(true)}} /></div>
+                <div><GiHamburgerMenu className='hamburger' onClick={() => setSideBar(!sideBar)} /></div>
                 <h3 style={{ fontFamily: 'Unbounded', color: 'red' }}>N & P</h3>
                 <div><FaShoppingCart className='cart' onClick={() => {cart ? setCart(false) : setCart(true)}} /></div>
             </div>
@@ -28,7 +30,10 @@ const Navbar = () => {
                 <Drawer
                     title={'SELECT CATEGORY'}
                     open={sideBar}
-                    onClose={() => setSideBar(false)}
+                    onClose={() => {
+                        setSideBar(false)
+                        setFavouriteBar(false)
+                    }}
                     width="320px"
                     closable={false}
                     placement='left'
@@ -39,7 +44,9 @@ const Navbar = () => {
                         <Menu.Item icon={<GrUserFemale style={{ marginRight: '10px' }} />}>WOMEN</Menu.Item>
                         <Menu.Item icon={<GrUserManager style={{ marginRight: '10px' }} />}>MEN</Menu.Item>
                         <Menu.Item icon={<GiKidSlide style={{ marginRight: '10px' }} />}>KIDS</Menu.Item>
-                        <Menu.Item icon={<MdOutlineFavoriteBorder style={{ marginRight: '10px' }} />}>WISHLIST</Menu.Item>
+                        <Menu.Item icon={<MdOutlineFavoriteBorder style={{ marginRight: '10px' }} />} onClick={() => {
+                        setFavouriteBar(true) 
+                        setSideBar(false)}}> WISHLIST</Menu.Item>
                     </Menu>
 
                 </Drawer>
@@ -48,7 +55,7 @@ const Navbar = () => {
             {
                 cart &&
                 <Drawer
-                    title={`Shopping bag (${productDetails.length})`}
+                    title={`Shopping bag (${cartProductDetails.length})`}
                     open={cart}
                     onClose={() => setCart(false)}
                     width="650px"
@@ -58,6 +65,23 @@ const Navbar = () => {
                     bodyStyle={{maxHeight : '83%'}}
                 >
                     <Cart />
+                </Drawer>
+            }
+
+            {
+                favouriteBar &&
+                <Drawer
+                    title={'favourite item'}
+                    open={favouriteBar}
+                    onClose={() => setFavouriteBar(false)}
+                    width="500px"
+                    closable={false}
+                    placement='bottom'
+                    rootStyle={{ marginTop: '52px', border: 'none', outline: 'none' }}
+                    bodyStyle={{maxHeight : '83%'}}
+                >
+
+                    Hey this has fav items
 
                 </Drawer>
             }

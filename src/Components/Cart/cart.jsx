@@ -1,41 +1,33 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 import './cart.scss';
 import { ImBin } from 'react-icons/im';
 import { cartActions } from '../../Store/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import Results from '../../fetchFromAPI/api';
 
 
 const Cart = () => {
-  const [num, setNum] = useState(1);
-
   const dispatch = useDispatch();
-  const productDetails = useSelector((state) => state.productDetails);
+  const cartProductDetails = useSelector((state) => state.cart.cartProductDetails);
 
-  const decNum = () => {
-    if (num !== 0) {
-      setNum(num - 1)
-    }
-  };
+  const decNum = (itemKey) => {
+      dispatch(cartActions.decreaseQuantity({itemKey}));
+  }
 
-  const removeCartFunction = (selectedProduct) => {
-    var product;
-    Results.map((item) => {
-      if (item.key === selectedProduct.key) {
-        product = item;
-      }
-    });
+  const incNum = (itemKey) => {
+    dispatch(cartActions.increaseQuantity({itemKey}));
+  }
 
-    dispatch(cartActions.removeFromCart({ product, selectedProduct }));
-  };
+  const removeCartFunction = (selectedProductKey) => {
+    dispatch(cartActions.removeFromCart({selectedProductKey}));
+  }
 
   return (
     <>
       <div className='main-container'>
-        {productDetails.length === 0
-          ? <h1 className='cart-heading'>There is nothing in your cart</h1>
-          : productDetails.map((item) => {
-            return < div className='cart-wrapper' >
+        {cartProductDetails.length === 0
+          ? <h1>There is nothing in your cart</h1>
+          : cartProductDetails.map((item) => {
+            return < div className='cart-wrapper' >   {/* main parent */}
 
               <div className='image'>
                 <img src={item.image} alt="" style={{ height: '80px', width: '80px' }} />
@@ -47,14 +39,14 @@ const Cart = () => {
               </div>
 
               <div className='qty-container'>
-                <div onClick={() => decNum()} className='decrease-icon'>-</div>
-                <div className='number'>{num}</div>
-                <div onClick={() => setNum(num + 1)} className='increase-icon'>+</div>
+                <div onClick={() => decNum(item.key)} className='decrease-icon'>-</div>
+                <div className='number'>{item.quantity}</div>
+                <div onClick={() => incNum(item.key)} className='increase-icon'>+</div>
               </div>
 
               <div className='price'>{item.currency === 'INR' ? `Rs. ${item.price}` : `$. ${item.price}`}</div>
 
-              <div className='dustbin-icon' onClick={() => removeCartFunction(item)}><ImBin /></div>
+              <div className='dustbin-icon' onClick={() => removeCartFunction(item.key)}><ImBin /></div>
 
             </div >
           })
