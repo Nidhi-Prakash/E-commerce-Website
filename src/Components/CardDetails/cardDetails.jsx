@@ -12,7 +12,7 @@ const CardDetails = ({ apiData, editKey }) => {
     const [open, setOpen] = useState(false);
 
     const dispatch = useDispatch();
-    // const productDetails = useSelector((state) => state.productDetails);
+    const productDetails = useSelector((state) => state.productDetails);
 
     function getRandomArbitrary(min, max) {
         return Math.random() * (max - min) + min;
