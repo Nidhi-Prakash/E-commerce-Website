@@ -4,7 +4,7 @@ import { Carousel, Col, Row, Rate } from 'antd';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import { cartActions } from '../../Store/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Popover } from 'antd';
+import { Popover } from 'antd';
 
 
 const CardDetails = ({ apiData, editKey }) => {
@@ -12,7 +12,7 @@ const CardDetails = ({ apiData, editKey }) => {
     const [open, setOpen] = useState(false);
 
     const dispatch = useDispatch();
-    const productDetails = useSelector((state) => state.productDetails);
+    // const productDetails = useSelector((state) => state.productDetails);
 
     function getRandomArbitrary(min, max) {
         return Math.random() * (max - min) + min;
@@ -87,6 +87,31 @@ const CardDetails = ({ apiData, editKey }) => {
                                                     <button className='add-cart-btn' style={{ width: 'max-content' }} onClick={() => addCartFunction(selectedProduct)}>Add to Cart</button>
                                                 </div>
                                         }
+
+                                        <div className='review-container'>
+                                            <h3 className='review-heading'>Write Review</h3>
+                                            <div className='review-input-btn'>
+                                                <input type="text" className='review-input' />
+                                                <button className='review-btn'>Post</button>
+                                            </div>
+                                        </div>
+
+                                        {/* <div className='comment-wrapper'>
+                                            <div className='comment-container'>
+                                                <p className='date'>29/12/2023</p>
+                                                <div className='comment'>
+                                                    I totally loved this project. It's a must buy guys. Go for it.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='comment-wrapper'>
+                                            <div className='comment-container'>
+                                                <p className='date'>29/12/2023</p>
+                                                <div className='comment'>
+                                                    I totally loved this project. It's a must buy guys. Go for it.
+                                                </div>
+                                            </div>
+                                        </div> */}
 
                                     </div></Col>
                                 </Row>

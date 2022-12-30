@@ -7,10 +7,13 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { MdOutlineFavoriteBorder } from 'react-icons/md';
 import { Drawer, Menu } from 'antd';
 import Cart from '../Cart/cart';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const [sideBar, setSideBar] = useState(false);
     const [cart, setCart] = useState(false);
+
+    const productDetails = useSelector((state) => state.productDetails);
 
     return (
         <div>
@@ -45,7 +48,7 @@ const Navbar = () => {
             {
                 cart &&
                 <Drawer
-                    title={'Shopping bag'}
+                    title={`Shopping bag (${productDetails.length})`}
                     open={cart}
                     onClose={() => setCart(false)}
                     width="650px"

@@ -32,8 +32,8 @@ const Cart = () => {
   return (
     <>
       <div className='main-container'>
-        {productDetails === []
-          ? <h1>There is nothing in your cart</h1>
+        {productDetails.length === 0
+          ? <h1 className='cart-heading'>There is nothing in your cart</h1>
           : productDetails.map((item) => {
             return < div className='cart-wrapper' >
 

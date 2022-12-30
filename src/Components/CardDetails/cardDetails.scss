@@ -1,10 +1,9 @@
 .product-details-wrapper {
-    // border: 2px solid red;
 
 
 
     .second-grid-box {
-        padding: 170px 50px;
+        padding: 35px 50px;
 
 
         .name-favourite {
@@ -54,6 +53,51 @@
                 color: white;
                 background-color: black;
                 cursor: pointer;
+            }
+        }
+
+
+        .review-container {
+            padding: 20px 0px;
+
+
+            .review-input-btn {
+                display: flex;
+
+
+                .review-input {
+                    height: 47px;
+                    width: 391px;
+                    font-size: 1.2rem;
+                }
+
+                .review-btn {
+                    padding: 16px 20px;
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: white;
+                    background-color: black;
+                    cursor: pointer;
+                }
+            }
+        }
+
+
+
+        .comment-wrapper {
+            padding-top: 40px;
+
+
+            .comment-container {
+                border: 2px solid black;
+                margin: 10px;
+
+
+                .date {
+
+                }
+
+                .comment {}
             }
         }
     }
