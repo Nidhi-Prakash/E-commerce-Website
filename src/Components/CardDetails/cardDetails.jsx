@@ -13,18 +13,25 @@ const CardDetails = ({ cardDetailsData }) => {
     const cartProductDetails = useSelector((state) => state.cart.cartProductDetails);
     const productDetails = useSelector((state) => state.product.productDetails);
     const [open, setOpen] = useState(false);
-    const color = cardDetailsData?.articles?.[0]?.color?.code;
+    const [curSize,setCurSize] = useState(document.getElementById("sizeOption")?.value)
+    
+ /////////////////////////// why curSize is coming undefined from above line  /////////////////////////////////
 
-    var isAddedToCart = false;
+    const color = cardDetailsData.articles?.[0]?.color?.code;
 
-    for (const temp of cartProductDetails) if (temp.key === cardDetailsData.key) isAddedToCart = true;
+
+    var isAddedToCart = false
+    for (const temp of cartProductDetails) 
+        if ((temp.key === cardDetailsData.key) && (curSize===undefined || curSize===temp.productSize))  isAddedToCart = true;
+
 
     const getRandomArbitrary = (min, max) => {
         return Math.random() * (max - min) + min;
     }
 
     const addCartFunction = (cardDetailsData) => {
-        dispatch(cartActions.addToCart(cardDetailsData));
+        console.log("iwish",curSize)
+        dispatch(cartActions.addToCart({ cardDetailsData: cardDetailsData, productSize: curSize}));
     };
 
     const handleHeart = (indx) => {
@@ -64,11 +71,13 @@ const CardDetails = ({ cardDetailsData }) => {
                             </div>
 
                             <div className='rating'>
-                                <Rate allowHalf defaultValue={getRandomArbitrary(0, 6)} />
+                                <Rate allowHalf disabled defaultValue={getRandomArbitrary(0, 6)} />
                             </div>
 
                             <div className='size-selector-container'>
-                                <select name="sizet" className='size-selector'>
+                                <select id='sizeOption' name="sizet" className='size-selector'
+                                onChange={() => { setCurSize(document.getElementById("sizeOption")?.value)}}
+                                >
                                     {
                                         cardDetailsData?.variantSizes.map((size) => {
                                             if (size !== null) {

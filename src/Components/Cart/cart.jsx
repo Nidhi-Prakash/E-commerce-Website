@@ -9,24 +9,12 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cartProductDetails = useSelector((state) => state.cart.cartProductDetails);
 
-  const decNum = (itemKey) => {
-      dispatch(cartActions.decreaseQuantity({itemKey}));
-  }
-
-  const incNum = (itemKey) => {
-    dispatch(cartActions.increaseQuantity({itemKey}));
-  }
-
-  const removeCartFunction = (selectedProductKey) => {
-    dispatch(cartActions.removeFromCart({selectedProductKey}));
-  }
-
   return (
     <>
       <div className='main-container'>
         {cartProductDetails.length === 0
           ? <h1>There is nothing in your cart</h1>
-          : cartProductDetails.map((item) => {
+          : cartProductDetails.map((item, indx) => {
             return < div className='cart-wrapper' >   {/* main parent */}
 
               <div className='image'>
@@ -35,18 +23,18 @@ const Cart = () => {
 
               <div className='heading-container'>
                 <p className='product-name'>{item.name}</p>
-                <p className='product-category'>{item.category}</p>
+                <p className='product-category'>{item.productSize}</p>
               </div>
 
               <div className='qty-container'>
-                <div onClick={() => decNum(item.key)} className='decrease-icon'>-</div>
+                <div onClick={() => dispatch(cartActions.decreaseQuantity({ indx }))} className='decrease-icon'>-</div>
                 <div className='number'>{item.quantity}</div>
-                <div onClick={() => incNum(item.key)} className='increase-icon'>+</div>
+                <div onClick={() => dispatch(cartActions.increaseQuantity({ indx }))} className='increase-icon'>+</div>
               </div>
 
-              <div className='price'>{item.currency === 'INR' ? `Rs. ${item.price}` : `$. ${item.price}`}</div>
+              <div className='price'>{item.currency === 'INR' ? `Rs. ${(item.quantity)*(item.price)}` : `$. ${(item.quantity)*(item.price)}`}</div>
 
-              <div className='dustbin-icon' onClick={() => removeCartFunction(item.key)}><ImBin /></div>
+              <div className='dustbin-icon' onClick={() => dispatch(cartActions.removeFromCart({ indx }))}><ImBin /></div>
 
             </div >
           })
