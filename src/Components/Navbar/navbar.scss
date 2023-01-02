@@ -12,28 +12,74 @@
     z-index: 100;
 
 
-    .hamburger {
-        color: white;
-        height: 25px;
-        width: 25px;
-        cursor: pointer;
+    // .hamburger {
+    //     color: white;
+    //     height: 25px;
+    //     width: 25px;
+    //     cursor: pointer;
+
+    // }
+
+    .nav-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 20px;
+
+
+
+        .cart {
+            color: white;
+            height: 25px;
+            width: 25px;
+            cursor: pointer;
+            // padding: 0px 10px;
+
+        }
+
+
+        .wishlist {
+            color: white;
+            height: 25px;
+            width: 25px;
+            cursor: pointer;
+        }
+
+
+        .search-container {
+            display: flex;
+            column-gap: -10px;
+            border-bottom: 1px solid white;
+
+            .search-bar {
+                outline: none;
+                background-color: transparent;
+                border: none;
+                color: white;
+                font-size: 20px;
+            }
+
+            .search-bar::-webkit-search-cancel-button {
+                display: none;
+            }
+
+            .search-icon {
+                color: white;
+                height: 25px;
+                width: 25px;
+                cursor: pointer;
+            }
+        }
+
+
 
     }
 
-
-    .cart {
-        color: white;
-        height: 25px;
-        width: 25px;
-        cursor: pointer;
-
-
-    }
 
     h3 {
         color: white;
         color: red;
         font-size: 1.5rem;
-        font-family: "HM Sans Semi Bold","HMSansHebrew-SemiBold","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",Osaka,"メイリオ",Meiryo,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+        font-family: "HM Sans Semi Bold", "HMSansHebrew-SemiBold", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
     }
 }

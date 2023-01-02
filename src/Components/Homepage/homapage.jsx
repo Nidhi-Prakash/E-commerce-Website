@@ -1,9 +1,20 @@
 import React from 'react';
 import './homepage.scss';
-import { Carousel } from 'antd';
+import { Carousel, Select } from 'antd';
 import Cards from '../Cards/cards';
+import Footer from '../Footer/footer';
+import { BsFilterRight } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
+import { filterActions } from '../../Store/filterSlice';
 
 const Homapage = () => {
+    const dispatch = useDispatch();
+
+    const handleChange = (value) => {
+        dispatch(filterActions.addFilter(value));
+    };
+
+
     return (
         <>
             <Carousel autoplay effect="fade" className='carousel-container'>
@@ -21,7 +32,35 @@ const Homapage = () => {
                 </div>
             </Carousel>
 
+            <div className='filter-container'>
+                <BsFilterRight className='filter-icon' />
+                <Select
+                    defaultValue="Filter here"
+                    style={{
+                        width: 130,
+                    }}
+                    onChange={handleChange}
+                    bordered={false}
+                    options={[
+                        {
+                            value: 'Ladies',
+                            label: 'Ladies',
+                        },
+                        {
+                            value: 'Men',
+                            label: 'Men',
+                        },
+                        {
+                            value: 'Kids',
+                            label: 'Kids',
+                        },
+                    ]}
+                />
+            </div>
+
             <Cards />
+
+            <Footer />
         </>
     );
 };

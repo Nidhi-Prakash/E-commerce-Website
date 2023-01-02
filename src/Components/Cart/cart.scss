@@ -7,7 +7,10 @@
 
 
     .cart-heading {
-        
+        font-family: "HM Sans Semi Bold", "HMSansHebrew-SemiBold", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+        font-weight: 500;
+        line-height: 1.142857143;
+        font-size: 1.75rem;
     }
 
 
@@ -78,13 +81,34 @@
 }
 
 
-.checkout-btn {
-    padding: 15px 225px;
-    font-size: 15px;
-    font-weight: 600;
-    color: white;
-    background-color: black;
-    cursor: pointer;
+
+footer {
     position: fixed;
     bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+
+
+    .checkout-btn {
+        padding: 15px 75px;
+        font-size: 15px;
+        font-weight: 600;
+        color: white;
+        background-color: black;
+        cursor: pointer;
+    }
+
+
+    .cart-total {
+        border: 2px solid black;
+        text-align: center;
+        width: 276px;
+        height: 47px;
+        font-size: 15px;
+        font-weight: 600;
+        color: white;
+        background-color: black;
+    }
 }

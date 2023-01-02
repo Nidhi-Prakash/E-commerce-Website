@@ -1,54 +1,57 @@
 import React, { useState } from 'react';
 import './navbar.scss'
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { GrUserFemale, GrUserManager } from 'react-icons/gr';
-import { GiKidSlide } from 'react-icons/gi';
 import { FaShoppingCart } from 'react-icons/fa';
-import { MdOutlineFavoriteBorder } from 'react-icons/md';
-import { Drawer, Menu } from 'antd';
-
+import logo from "../Assets/logo.png";
+import { MdOutlineFavorite, MdOutlineSearch } from 'react-icons/md';
+import { Drawer } from 'antd';
+import Wishlist from '../Wishlist/wishlist';
+import { searchActions } from '../../Store/searchSlice';
+import { useSelector, useDispatch } from 'react-redux';
 import Cart from '../Cart/cart';
-import { useSelector } from 'react-redux';
 
 const Navbar = () => {
-    const [sideBar, setSideBar] = useState(false);
+    const dispatch = useDispatch();
+    const [wishlist, setWishlist] = useState(false);
     const [cart, setCart] = useState(false);
-    const [favouriteBar, setFavouriteBar] = useState(false);
+    const [search, setSearch] = useState('');
 
     const cartProductDetails = useSelector((state) => state.cart.cartProductDetails);
+
+    const handleChange = event => {
+        setSearch(event.target.value);
+    };
+
+    const handleSearch = () => {
+        dispatch(searchActions.addSearch(search));
+    }
 
     return (
         <div>
             <div className='navbar'>
-                <div><GiHamburgerMenu className='hamburger' onClick={() => setSideBar(!sideBar)} /></div>
-                <h3 style={{ fontFamily: 'Unbounded', color: 'red' }}>N & P</h3>
-                <div><FaShoppingCart className='cart' onClick={() => {cart ? setCart(false) : setCart(true)}} /></div>
+                <h3 style={{ fontFamily: 'Unbounded', color: 'red' }}> <img src={logo} alt="" style={{height: '37px', width: '37px', paddingTop: '5px'}} /> </h3>
+                <div className='nav-options'>
+                    <div className='search-container'>
+                        <input type="search" className='search-bar' onChange={handleChange} value={search} />
+                        <MdOutlineSearch className='search-icon' onClick={() => handleSearch()} style={{cursor: 'pointer'}} />
+                    </div>
+                    <MdOutlineFavorite className='wishlist' onClick={() => { wishlist ? setWishlist(false) : setWishlist(true) }} />
+                    <FaShoppingCart className='cart' onClick={() => { cart ? setCart(false) : setCart(true) }} />
+                </div>
             </div>
 
             {
-                sideBar &&
+                wishlist &&
                 <Drawer
-                    title={'SELECT CATEGORY'}
-                    open={sideBar}
-                    onClose={() => {
-                        setSideBar(false)
-                        setFavouriteBar(false)
-                    }}
-                    width="320px"
+                    title={'Your wishlist'}
+                    open={wishlist}
+                    onClose={() => setWishlist(false)}
+                    width="650px"
                     closable={false}
-                    placement='left'
+                    placement='right'
                     rootStyle={{ marginTop: '52px', border: 'none', outline: 'none' }}
-                    bodyStyle={{ padding: '10px' }}
+                    bodyStyle={{ maxHeight: '83%' }}
                 >
-                    <Menu>
-                        <Menu.Item icon={<GrUserFemale style={{ marginRight: '10px' }} />}>WOMEN</Menu.Item>
-                        <Menu.Item icon={<GrUserManager style={{ marginRight: '10px' }} />}>MEN</Menu.Item>
-                        <Menu.Item icon={<GiKidSlide style={{ marginRight: '10px' }} />}>KIDS</Menu.Item>
-                        <Menu.Item icon={<MdOutlineFavoriteBorder style={{ marginRight: '10px' }} />} onClick={() => {
-                        setFavouriteBar(true) 
-                        setSideBar(false)}}> WISHLIST</Menu.Item>
-                    </Menu>
-
+                    <Wishlist />
                 </Drawer>
             }
 
@@ -62,27 +65,9 @@ const Navbar = () => {
                     closable={false}
                     placement='right'
                     rootStyle={{ marginTop: '52px', border: 'none', outline: 'none' }}
-                    bodyStyle={{maxHeight : '83%'}}
+                    bodyStyle={{ maxHeight: '83%' }}
                 >
                     <Cart />
-                </Drawer>
-            }
-
-            {
-                favouriteBar &&
-                <Drawer
-                    title={'favourite item'}
-                    open={favouriteBar}
-                    onClose={() => setFavouriteBar(false)}
-                    width="500px"
-                    closable={false}
-                    placement='bottom'
-                    rootStyle={{ marginTop: '52px', border: 'none', outline: 'none' }}
-                    bodyStyle={{maxHeight : '83%'}}
-                >
-
-                    Hey this has fav items
-
                 </Drawer>
             }
 

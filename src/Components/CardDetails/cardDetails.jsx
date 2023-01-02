@@ -13,16 +13,16 @@ const CardDetails = ({ cardDetailsData }) => {
     const cartProductDetails = useSelector((state) => state.cart.cartProductDetails);
     const productDetails = useSelector((state) => state.product.productDetails);
     const [open, setOpen] = useState(false);
-    const [curSize,setCurSize] = useState(document.getElementById("sizeOption")?.value)
-    
- /////////////////////////// why curSize is coming undefined from above line  /////////////////////////////////
+    const [curSize, setCurSize] = useState(document.getElementById("sizeOption")?.value)
+
+    /////////////////////////// why curSize is coming undefined from above line  /////////////////////////////////
 
     const color = cardDetailsData.articles?.[0]?.color?.code;
 
 
     var isAddedToCart = false
-    for (const temp of cartProductDetails) 
-        if ((temp.key === cardDetailsData.key) && (curSize===undefined || curSize===temp.productSize))  isAddedToCart = true;
+    for (const temp of cartProductDetails)
+        if ((temp.key === cardDetailsData.key) && (curSize === undefined || curSize === temp.productSize)) isAddedToCart = true;
 
 
     const getRandomArbitrary = (min, max) => {
@@ -30,8 +30,7 @@ const CardDetails = ({ cardDetailsData }) => {
     }
 
     const addCartFunction = (cardDetailsData) => {
-        console.log("iwish",curSize)
-        dispatch(cartActions.addToCart({ cardDetailsData: cardDetailsData, productSize: curSize}));
+        dispatch(cartActions.addToCart({ cardDetailsData: cardDetailsData, productSize: curSize }));
     };
 
     const handleHeart = (indx) => {
@@ -61,7 +60,7 @@ const CardDetails = ({ cardDetailsData }) => {
                                 {productDetails[cardDetailsData.key - 1].isFavorite === false ?
                                     <MdOutlineFavoriteBorder style={{ height: '25px', width: '25px', cursor: 'pointer', position: 'relative', bottom: '15px' }} onClick={() => handleHeart(cardDetailsData.key - 1)} />
                                     :
-                                    <MdOutlineFavorite style={{ height: '25px', width: '25px', cursor: 'pointer', position: 'relative', bottom: '15px' }} onClick={() => handleHeart(cardDetailsData.key - 1)} />
+                                    <MdOutlineFavorite style={{ height: '25px', width: '25px', cursor: 'pointer', position: 'relative', bottom: '15px', color: 'red' }} onClick={() => handleHeart(cardDetailsData.key - 1)} />
                                 }
 
                             </div>
@@ -76,7 +75,7 @@ const CardDetails = ({ cardDetailsData }) => {
 
                             <div className='size-selector-container'>
                                 <select id='sizeOption' name="sizet" className='size-selector'
-                                onChange={() => { setCurSize(document.getElementById("sizeOption")?.value)}}
+                                    onChange={() => { setCurSize(document.getElementById("sizeOption")?.value) }}
                                 >
                                     {
                                         cardDetailsData?.variantSizes.map((size) => {
@@ -131,8 +130,6 @@ const CardDetails = ({ cardDetailsData }) => {
                                                 </div>
                                             </div>
                                         </div> */}
-
-
                         </div>
                     </Col>
                 </Row>
