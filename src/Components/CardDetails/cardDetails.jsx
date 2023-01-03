@@ -13,10 +13,7 @@ const CardDetails = ({ cardDetailsData }) => {
     const cartProductDetails = useSelector((state) => state.cart.cartProductDetails);
     const productDetails = useSelector((state) => state.product.productDetails);
     const [open, setOpen] = useState(false);
-    const [curSize, setCurSize] = useState(document.getElementById("sizeOption")?.value)
-
-    /////////////////////////// why curSize is coming undefined from above line  /////////////////////////////////
-
+    const [curSize, setCurSize] = useState(cardDetailsData?.variantSizes.slice(-1)[0].filterCode);
     const color = cardDetailsData.articles?.[0]?.color?.code;
 
 

@@ -11,18 +11,14 @@ import Cart from '../Cart/cart';
 
 const Navbar = () => {
     const dispatch = useDispatch();
+    const cartProductDetails = useSelector((state) => state.cart.cartProductDetails);
+    const searchValue = useSelector((state) => state.searchValue);
     const [wishlist, setWishlist] = useState(false);
     const [cart, setCart] = useState(false);
-    const [search, setSearch] = useState('');
+    console.log("test",searchValue)
 
-    const cartProductDetails = useSelector((state) => state.cart.cartProductDetails);
-
-    const handleChange = event => {
-        setSearch(event.target.value);
-    };
-
-    const handleSearch = () => {
-        dispatch(searchActions.addSearch(search));
+    const handleChange = (e) => {
+        dispatch(searchActions.addSearch(e.target.value));
     }
 
     return (
@@ -31,8 +27,8 @@ const Navbar = () => {
                 <h3 style={{ fontFamily: 'Unbounded', color: 'red' }}> <img src={logo} alt="" style={{height: '37px', width: '37px', paddingTop: '5px'}} /> </h3>
                 <div className='nav-options'>
                     <div className='search-container'>
-                        <input type="search" className='search-bar' onChange={handleChange} value={search} />
-                        <MdOutlineSearch className='search-icon' onClick={() => handleSearch()} style={{cursor: 'pointer'}} />
+                        <input type="search" className='search-bar' onChange={handleChange} value={searchValue} />
+                        {/* <MdOutlineSearch className='search-icon' style={{cursor: 'pointer'}} /> */}
                     </div>
                     <MdOutlineFavorite className='wishlist' onClick={() => { wishlist ? setWishlist(false) : setWishlist(true) }} />
                     <FaShoppingCart className='cart' onClick={() => { cart ? setCart(false) : setCart(true) }} />

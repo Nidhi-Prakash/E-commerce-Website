@@ -6,6 +6,7 @@ import { MdOutlineFavoriteBorder, MdOutlineFavorite } from 'react-icons/md';
 import Results from '../../fetchFromAPI/api';
 import CardDetails from '../CardDetails/cardDetails';
 import { productActions } from '../../Store/productSlice'
+import searchFunction from '../CardDetails/SearchFunction';
 
 const { Meta } = Card;
 
@@ -13,7 +14,6 @@ const Cards = () => {
     const dispatch = useDispatch();
     const [showCardDetails, setShowCardDetails] = useState(false);
     const [cardDetailsData, setcardDetailsData] = useState({});
-
     const productDetails = useSelector((state) => state.product.productDetails);
     const filterValue = useSelector((state) => state.filter.filterValue);
     const searchValue = useSelector((state) => state.search.searchValue);
@@ -26,39 +26,10 @@ const Cards = () => {
         <div className='cards-container'>
             <div className="site-card-wrapper">
                 <Row gutter={16}>
-                    {searchValue !== 'null' ?
-                        Results.filter((item) => item?.name === searchValue).map((product, indx) => {
-                            return <Col span={8} className='columns'>
-                                <Card
-                                    hoverable
-                                    style={{
-                                        width: 350
-                                    }}
-                                    key={product?.key}
-                                    className='card'
-                                    cover={<img alt="example" src={product?.images?.[0]?.url} />}
-                                >
-                                    <Meta title={product?.name} description={product?.price?.currencyIso === 'INR' ? `Rs. ${product?.price?.value}` : `$. ${product?.price?.value}`} />
+                    {
+                        Results?.map((item, indx) => {
 
-                                    <div className='card-footer'>
-                                        <Button onClick={() => {
-                                            setcardDetailsData({ ...product })
-                                            setShowCardDetails(true)
-                                        }}>More</Button>
-
-                                        {productDetails[indx].isFavorite === false ?
-                                            <MdOutlineFavoriteBorder style={{ height: '25px', width: '25px' }} onClick={() => handleHeart(indx)} />
-                                            :
-                                            <MdOutlineFavorite style={{ height: '25px', width: '25px', color: 'red' }} onClick={() => handleHeart(indx)} />
-                                        }
-
-                                    </div>
-                                </Card>
-                            </Col>
-                        })
-                        :
-                        filterValue === 'null' ?
-                            Results?.map((item, indx) => {
+                            if ((filterValue === 'All Category') && searchFunction(searchValue,item.name)) {
                                 return <Col span={8} className='columns'>
                                     <Card
                                         hoverable
@@ -86,24 +57,24 @@ const Cards = () => {
                                         </div>
                                     </Card>
                                 </Col>
-                            })
-                            :
-                            Results.filter((item) => item?.categoryName === filterValue).map((product, indx) => {
+                            }
+
+                            if ((item.categoryName === filterValue) && searchFunction(searchValue,item.name)) {
                                 return <Col span={8} className='columns'>
                                     <Card
                                         hoverable
                                         style={{
                                             width: 350
                                         }}
-                                        key={product?.key}
+                                        key={item?.key}
                                         className='card'
-                                        cover={<img alt="example" src={product?.images?.[0]?.url} />}
+                                        cover={<img alt="example" src={item?.images?.[0]?.url} />}
                                     >
-                                        <Meta title={product?.name} description={product?.price?.currencyIso === 'INR' ? `Rs. ${product?.price?.value}` : `$. ${product?.price?.value}`} />
+                                        <Meta title={item?.name} description={item?.price?.currencyIso === 'INR' ? `Rs. ${item?.price?.value}` : `$. ${item?.price?.value}`} />
 
                                         <div className='card-footer'>
                                             <Button onClick={() => {
-                                                setcardDetailsData({ ...product })
+                                                setcardDetailsData({ ...item })
                                                 setShowCardDetails(true)
                                             }}>More</Button>
 
@@ -116,7 +87,9 @@ const Cards = () => {
                                         </div>
                                     </Card>
                                 </Col>
-                            })
+                            }
+
+                        })
                     }
                 </Row>
             </div>

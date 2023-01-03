@@ -35,13 +35,17 @@ const Homapage = () => {
             <div className='filter-container'>
                 <BsFilterRight className='filter-icon' />
                 <Select
-                    defaultValue="Filter here"
+                    defaultValue="All Category"
                     style={{
                         width: 130,
                     }}
                     onChange={handleChange}
                     bordered={false}
                     options={[
+                        {
+                            value: 'All Category',
+                            label: 'All Category',
+                        },
                         {
                             value: 'Ladies',
                             label: 'Ladies',

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const filterSlice = createSlice({
     name: 'filter',
-    initialState: { filterValue: 'null' },
+    initialState: { filterValue: 'All Category' },
     reducers: {
         addFilter(state, action){
             state.filterValue = action.payload;
