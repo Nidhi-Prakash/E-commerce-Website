@@ -3,7 +3,7 @@
 
 
     .second-grid-box {
-        padding: 35px 50px;
+        padding: 150px 50px;
 
 
         .name-favourite {
@@ -53,52 +53,6 @@
                 color: white;
                 background-color: black;
                 cursor: pointer;
-            }
-        }
-
-
-        .review-container {
-            padding: 20px 0px;
-
-
-            .review-input-btn {
-                display: flex;
-
-
-                .review-input {
-                    height: 47px;
-                    width: 391px;
-                    font-size: 1.2rem;
-                    padding:0px 6px;
-                }
-
-                .review-btn {
-                    padding: 14px 20px;
-                    font-size: 15px;
-                    font-weight: 600;
-                    color: white;
-                    background-color: black;
-                    cursor: pointer;
-                }
-            }
-        }
-
-
-
-        .comment-wrapper {
-            padding-top: 40px;
-
-
-            .comment-container {
-                border: 2px solid black;
-                margin: 10px;
-
-
-                .date {
-
-                }
-
-                .comment {}
             }
         }
     }

@@ -105,31 +105,6 @@ const CardDetails = ({ cardDetailsData }) => {
                                         <button className='add-cart-btn' style={{ width: 'max-content' }} onClick={() => addCartFunction(cardDetailsData)}>Add to Cart</button>
                                     </div>
                             }
-
-                            <div className='review-container'>
-                                <h3 className='review-heading'>Write Review</h3>
-                                <div className='review-input-btn'>
-                                    <input type="text" className='review-input' />
-                                    <button className='review-btn'>Post</button>
-                                </div>
-                            </div>
-
-                            {/* <div className='comment-wrapper'>
-                                            <div className='comment-container'>
-                                                <p className='date'>29/12/2023</p>
-                                                <div className='comment'>
-                                                    I totally loved this project. It's a must buy guys. Go for it.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className='comment-wrapper'>
-                                            <div className='comment-container'>
-                                                <p className='date'>29/12/2023</p>
-                                                <div className='comment'>
-                                                    I totally loved this project. It's a must buy guys. Go for it.
-                                                </div>
-                                            </div>
-                                        </div> */}
                         </div>
                     </Col>
                 </Row>
