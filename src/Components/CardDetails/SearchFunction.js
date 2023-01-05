@@ -2,7 +2,6 @@ const searchFunction = (t_key, t_productName) => {
     const n = t_key.length;
     const m = t_productName.length;
     var key = t_key.toLowerCase();
-    key = key.trim();
 
     const productName = t_productName.toLowerCase();
     

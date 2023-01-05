@@ -25,7 +25,7 @@ const Cart = () => {
         {cartProductDetails.length === 0
           ? <p className='cart-heading'>YOUR SHOPPING BAG IS EMPTY!</p>
           : cartProductDetails.map((item, indx) => {
-            return < div className='cart-wrapper' >   {/* main parent */}
+            return < div className='cart-wrapper' >
               <div className='image'>
                 <img src={item.image} alt="" style={{ height: '80px', width: '80px' }} />
               </div>

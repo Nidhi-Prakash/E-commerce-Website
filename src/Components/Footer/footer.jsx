@@ -17,14 +17,14 @@ const Footer = () => {
               <a href="##">Men</a>
               <a href="##">Kids</a>
               <a href="##">Baby</a>
-              <a href="##">N & P Home</a>
+              <a href="##">P&N Home</a>
               <a href="##">Sport</a>
             </div>
 
             <div className='lists'>
               <h5>CORPORATE INFO</h5>
-              <a href="##">Career at H&M</a>
-              <a href="##">About H&M group</a>
+              <a href="##">Career at P&N</a>
+              <a href="##">About P&N group</a>
               <a href="##">Sustainability</a>
               <a href="##">Press</a>
               <a href="##">Investor relations</a>
@@ -33,7 +33,7 @@ const Footer = () => {
 
             <div className='lists'>
               <h5>HELP</h5>
-              <a href="##">My H&M</a>
+              <a href="##">My P&N</a>
               <a href="##">Find a store</a>
               <a href="##">Legal & Privacy</a>
               <a href="##">Contact</a>
@@ -62,7 +62,7 @@ const Footer = () => {
 
             <div>
               <p className='para'>
-                The content of this site is copyright-protected and is the property of H & M Hennes & Mauritz AB. H&M’s business concept is to offer fashion and quality at the best price in a sustainable way. H&M has since it was founded in 1947 grown into one of the world's leading fashion companies.
+                The content of this site is copyright-protected and is the property of P & N Prateek & Nidhi AB. P&N’s business concept is to offer fashion and quality at the best price in a sustainable way. P&N has since it was founded in 1947 grown into one of the world's leading fashion companies.
               </p>
             </div>
 

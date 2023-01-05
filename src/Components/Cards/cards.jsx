@@ -20,7 +20,9 @@ const Cards = () => {
 
     const handleHeart = (indx) => {
         dispatch(productActions.heartAction({ indx }));
-    }
+    };
+
+    let len = 0;
 
     return (
         <div className='cards-container'>
@@ -29,8 +31,9 @@ const Cards = () => {
                     {
                         Results?.map((item, indx) => {
 
-                            if ((filterValue === 'All Category') && searchFunction(searchValue,item.name)) {
+                            if ((filterValue === 'All Category') && searchFunction(searchValue, item.name) && (++len)) {
                                 return <Col span={8} className='columns'>
+                                    {/* {(len) => {len++}} */}
                                     <Card
                                         hoverable
                                         style={{
@@ -59,8 +62,9 @@ const Cards = () => {
                                 </Col>
                             }
 
-                            if ((item.categoryName === filterValue) && searchFunction(searchValue,item.name)) {
+                            if ((item.categoryName === filterValue) && searchFunction(searchValue, item.name) && (++len)) {
                                 return <Col span={8} className='columns'>
+                                    {/* {(len) => {len++}} */}
                                     <Card
                                         hoverable
                                         style={{
@@ -88,11 +92,16 @@ const Cards = () => {
                                     </Card>
                                 </Col>
                             }
-
                         })
                     }
                 </Row>
             </div>
+
+            {
+                len === 0 &&
+                <div className='no-result-warning'>No result found!!!</div>
+
+            }
 
             {
                 showCardDetails && <Modal

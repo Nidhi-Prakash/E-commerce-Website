@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './navbar.scss'
 import { FaShoppingCart } from 'react-icons/fa';
 import logo from "../Assets/logo.png";
-import { MdOutlineFavorite, MdOutlineSearch } from 'react-icons/md';
+import { MdOutlineFavorite } from 'react-icons/md';
 import { Drawer } from 'antd';
 import Wishlist from '../Wishlist/wishlist';
 import { searchActions } from '../../Store/searchSlice';
@@ -15,7 +15,6 @@ const Navbar = () => {
     const searchValue = useSelector((state) => state.searchValue);
     const [wishlist, setWishlist] = useState(false);
     const [cart, setCart] = useState(false);
-    console.log("test",searchValue)
 
     const handleChange = (e) => {
         dispatch(searchActions.addSearch(e.target.value));
@@ -28,7 +27,6 @@ const Navbar = () => {
                 <div className='nav-options'>
                     <div className='search-container'>
                         <input type="search" className='search-bar' onChange={handleChange} value={searchValue} />
-                        {/* <MdOutlineSearch className='search-icon' style={{cursor: 'pointer'}} /> */}
                     </div>
                     <MdOutlineFavorite className='wishlist' onClick={() => { wishlist ? setWishlist(false) : setWishlist(true) }} />
                     <FaShoppingCart className='cart' onClick={() => { cart ? setCart(false) : setCart(true) }} />
@@ -38,7 +36,7 @@ const Navbar = () => {
             {
                 wishlist &&
                 <Drawer
-                    title={'Your wishlist'}
+                    title={'YOUR WISHLIST'}
                     open={wishlist}
                     onClose={() => setWishlist(false)}
                     width="650px"
