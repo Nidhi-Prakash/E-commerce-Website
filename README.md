@@ -8,3 +8,5 @@ It includes features like :- <br />
 -> Filter the product <br />
 -> Adding to wishlist <br />
 -> Adding to cart <br />
+-> Removing from cart <br />
+-> Removing from wishlist <br />
