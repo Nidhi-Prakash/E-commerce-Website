@@ -8,7 +8,7 @@ import CardDetails from '../CardDetails/cardDetails';
 import { productActions } from '../../Store/productSlice'
 import searchFunction from '../CardDetails/SearchFunction';
 
-const { Meta } = Card;
+const { Meta } = Card; 
 
 const Cards = () => {
     const dispatch = useDispatch();
