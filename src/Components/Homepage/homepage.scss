@@ -5,8 +5,7 @@
     padding-top: 50px;
 
     .posters {
-        width: 100%;
-        
+        width: 100%;        
     }
 
 }
@@ -24,4 +23,9 @@
     margin: 0px auto;
     box-shadow: 3px 3px 3px black;
     
+}
+
+.container {
+    width: 100%;
+    overflow-x: hidden;
 }

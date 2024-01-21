@@ -8,7 +8,7 @@ import CardDetails from '../CardDetails/cardDetails';
 import { productActions } from '../../Store/productSlice'
 import searchFunction from '../CardDetails/SearchFunction';
 
-const { Meta } = Card; 
+const { Meta } = Card;
 
 const Cards = () => {
     const dispatch = useDispatch();
@@ -42,6 +42,10 @@ const Cards = () => {
                                         key={item?.key}
                                         className='card'
                                         cover={<img alt="example" src={item?.images?.[0]?.url} />}
+                                        onClick={() => {
+                                            setcardDetailsData({ ...item })
+                                            setShowCardDetails(true)
+                                        }}
                                     >
                                         <Meta title={item?.name} description={item?.price?.currencyIso === 'INR' ? `Rs. ${item?.price?.value}` : `$. ${item?.price?.value}`} />
 
@@ -73,6 +77,10 @@ const Cards = () => {
                                         key={item?.key}
                                         className='card'
                                         cover={<img alt="example" src={item?.images?.[0]?.url} />}
+                                        onClick={() => {
+                                            setcardDetailsData({ ...item })
+                                            setShowCardDetails(true)
+                                        }}
                                     >
                                         <Meta title={item?.name} description={item?.price?.currencyIso === 'INR' ? `Rs. ${item?.price?.value}` : `$. ${item?.price?.value}`} />
 

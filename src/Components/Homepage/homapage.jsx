@@ -16,7 +16,7 @@ const Homapage = () => {
 
 
     return (
-        <>
+        <div className='container'>
             <Carousel autoplay effect="fade" className='carousel-container'>
                 <div>
                     <img src='https://assets.bonkerscorner.com/uploads/2021/10/14003242/womencategories_desktopbanner.gif' alt='1st' className='posters' />
@@ -59,7 +59,7 @@ const Homapage = () => {
             <Cards />
 
             <Footer />
-        </>
+        </div>
     );
 };
 

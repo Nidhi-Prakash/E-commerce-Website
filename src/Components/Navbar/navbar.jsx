@@ -23,11 +23,11 @@ const Navbar = () => {
     return (
         <div>
             <div className='navbar'>
-                <h3 style={{ fontFamily: 'Unbounded', color: 'red' }}> <img src={logo} alt="" style={{height: '37px', width: '37px', paddingTop: '5px'}} /> </h3>
+                <h3 style={{ fontFamily: 'Unbounded', color: 'red' }}> <img src={logo} alt="" style={{ height: '37px', width: '37px', paddingTop: '5px' }} /> </h3>
+                <div className='search-container'>
+                    <input type="search" className='search-bar' onChange={handleChange} value={searchValue} placeholder='Search here...' />
+                </div>
                 <div className='nav-options'>
-                    <div className='search-container'>
-                        <input type="search" className='search-bar' onChange={handleChange} value={searchValue} />
-                    </div>
                     <MdOutlineFavorite className='wishlist' onClick={() => { wishlist ? setWishlist(false) : setWishlist(true) }} />
                     <FaShoppingCart className='cart' onClick={() => { cart ? setCart(false) : setCart(true) }} />
                 </div>
