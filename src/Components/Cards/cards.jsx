@@ -33,7 +33,6 @@ const Cards = () => {
 
                             if ((filterValue === 'All Category') && searchFunction(searchValue, item.name) && (++len)) {
                                 return <Col span={8} className='columns'>
-                                    {/* {(len) => {len++}} */}
                                     <Card
                                         hoverable
                                         style={{
@@ -42,10 +41,6 @@ const Cards = () => {
                                         key={item?.key}
                                         className='card'
                                         cover={<img alt="example" src={item?.images?.[0]?.url} />}
-                                        onClick={() => {
-                                            setcardDetailsData({ ...item })
-                                            setShowCardDetails(true)
-                                        }}
                                     >
                                         <Meta title={item?.name} description={item?.price?.currencyIso === 'INR' ? `Rs. ${item?.price?.value}` : `$. ${item?.price?.value}`} />
 
@@ -77,10 +72,6 @@ const Cards = () => {
                                         key={item?.key}
                                         className='card'
                                         cover={<img alt="example" src={item?.images?.[0]?.url} />}
-                                        onClick={() => {
-                                            setcardDetailsData({ ...item })
-                                            setShowCardDetails(true)
-                                        }}
                                     >
                                         <Meta title={item?.name} description={item?.price?.currencyIso === 'INR' ? `Rs. ${item?.price?.value}` : `$. ${item?.price?.value}`} />
 
